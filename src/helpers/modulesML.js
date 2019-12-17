@@ -25,7 +25,7 @@ var modulesML = {
       "20 Shamokin Ln, East Islip, NY 11730, USA,12 Shamokin Ln, East Islip, NY 11730, USA,19 Shamokin Ln, East Islip, NY 11730, USA,2-26 Shamokin Ln, East Islip, NY 11730, USA,East Islip, NY 11730, USA,East Islip, NY, USA,Islip, NY, USA,Long Island, New York, USA,Suffolk County, NY, USA,New York, USA,United State",
       "199 Amsterdam Ave, New York, NY 10023, USA,199 Amsterdam Ave, New York, NY 10023, USA,187 W 69th St, New York, NY 10023, USA,198-174 W 69th St, New York, NY 10023, USA,Lincoln Square, New York, NY, USA,New York, NY 10023, USA,Manhattan, New York, NY, USA,New York County, New York, NY, USA,New York, NY, USA,New York, USA,United State",
       "100 White Pine Dr, Albany, NY 12203, USA,100 White Pine Dr, Albany, NY 12203, USA,100 White Pine Dr, Albany, NY 12203, USA,100-198 White Pine Dr, Albany, NY 12203, USA,Dunes, Albany, NY, USA,STUYVSNT PLZ, NY 12203, USA,Albany, NY, USA,Albany County, NY, USA,New York, USA,United States"
-    ]*/
+    ]
 
     const trainingData =[
       ",NY,Suffolk,Islip,East Islip,,East Islip,11730,,,,,,,,Shamokin,Lane,,,,1,,,,,,,,,,-73.182316171646150,40.727967291166841,18TXL5350010148,{B2CEE556-F0E4-4459-AD11-A955AD5E512E},Unknown,Structure - Rooftop,New York State GIS Program Office,911 Addressing Authority,,7/23/2018 20:07:26,,,3771041",  
@@ -34,8 +34,36 @@ var modulesML = {
       ",NY,Suffolk,Islip,East Islip,,East Islip,11730,,,,,,,,Shamokin,Lane,,,,12,,,,,,,,,,-73.181104140410326,40.727507921811558,18TXL5360410099,{09325886-8E4F-423F-9783-E605401709A4},Unknown,Structure - Rooftop,New York State GIS Program Office,911 Addressing Authority,,7/23/2018 20:07:26,,,3771044",
       ",NY,Suffolk,Islip,East Islip,,East Islip,11730,,,,,,,,Shamokin,Lane,,,,20,,,,,,,,,,-73.181243394550705,40.728252197161567,18TXL5359010182,{840B9CF3-7FAF-45C0-8CA6-FF1D0D6A05AB},Unknown,Structure - Rooftop,New York State GIS Program Office,911 Addressing Authority,,7/23/2018 20:07:26,,,3771058"
     ]
+*/
+    const testData = '/Users/cooper/Documents/Data/NAD_r3_revised_ASCII/top10.txt'
+d3.csv(testData, function (data){
+  console.log("d3.csv: ", data )
+  data.map ( item => {
+    console.log("Data long: " + data )
+  })
+})//end read csv
 
 
+$.ajax({
+  url: testData,
+  dataType: 'test',
+  success: function(data){
+    console.log("Ajax data: ", data );
+  }
+})//end ajax
+
+async () => {
+  alert("Shiver me Timbers!!! ");
+  try {
+      let response = await axios.get(`${state.contactsURL}`);
+      console.log("store - contactData:  ", response.data );
+      commit('setContactData', response.data);
+  } catch (error) {
+      alert('setContactData - Data Load error: ' + error);
+  }
+}
+
+/*
     alert("TraingData: " + trainingData );
 
 
@@ -54,7 +82,7 @@ var modulesML = {
     alert("QueryString: " + queryString );
 
     console.log("Results: ", queryString + network.run(queryString ));
-
+*/
     return data;
   },
   LSTM (data) {
