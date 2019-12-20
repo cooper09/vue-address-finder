@@ -2,21 +2,20 @@ import { VAppBarNavIcon } from "vuetify/lib";
 
 var modulesML = {
 
-  
-
   Test(data) {
     console.log("makeaDecision.Test: "+ data );
     return data;
   },
-  decisionTree(data) {
-    console.log("makeaDecision.decisionTree: "+ data );
+  runLSTM(data) {
+    console.log("makeaDecision.runLSTM: "+ data.split('') );
 
     const brain = require('brain.js');
+    const d3 = require('d3')
 
-  /*  const trainingData = [
-      [10,9,8,7,6,5,4,3,2,1]
-    ]
-*/
+    let trainingData = [];
+
+    
+
    /* const trainingData = [
       "12 Loines Ave, Merrick, NY 11566, USA,2039 Merrick Ave N, Merrick, NY 11566, USA,2039 Merrick Ave, Merrick, NY 11566, USA,11 Loines Ave, Merrick, NY 11566, USA,57-1 Loines Ave, Merrick, NY 11566, USA,Merrick, NY, USA,Merrick, NY 11566, USA,Hempstead, NY, USA,Nassau County, NY, USA,Long Island, New York, USA,New York, USA,United States",
       "44-10 Kissena Blvd, Flushing, NY 11355, EE. UU.,4410 Kissena Blvd, Flushing, NY 11355, EE. UU.,44-9 Kissena Blvd, Flushing, NY 11355, EE. UU.,44-23-44-1 Kissena Blvd, Flushing, NY 11355, EE. UU.,East Flushing, Queens, NY, EE. UU.,Flushing, Nueva York 11355, EE. UU.,Queens, Nueva York, EE. UU.,Queens, Nueva York, EE. UU.,Nueva York, EE. UU.,Long Island, Nueva York, EE. UU.,Nueva York, EE. UU.,Estados Unidos",
@@ -35,57 +34,63 @@ var modulesML = {
       ",NY,Suffolk,Islip,East Islip,,East Islip,11730,,,,,,,,Shamokin,Lane,,,,20,,,,,,,,,,-73.181243394550705,40.728252197161567,18TXL5359010182,{840B9CF3-7FAF-45C0-8CA6-FF1D0D6A05AB},Unknown,Structure - Rooftop,New York State GIS Program Office,911 Addressing Authority,,7/23/2018 20:07:26,,,3771058"
     ]
 */
-    const testData = '/Users/cooper/Documents/Data/NAD_r3_revised_ASCII/top10.txt'
-d3.csv(testData, function (data){
-  console.log("d3.csv: ", data )
-  data.map ( item => {
-    console.log("Data long: " + data )
-  })
-})//end read csv
 
+function processData (training) {
+  console.log("processData: ", training);
 
-$.ajax({
-  url: testData,
-  dataType: 'test',
-  success: function(data){
-    console.log("Ajax data: ", data );
-  }
-})//end ajax
-
-async () => {
-  alert("Shiver me Timbers!!! ");
-  try {
-      let response = await axios.get(`${state.contactsURL}`);
-      console.log("store - contactData:  ", response.data );
-      commit('setContactData', response.data);
-  } catch (error) {
-      alert('setContactData - Data Load error: ' + error);
-  }
-}
-
-/*
-    alert("TraingData: " + trainingData );
-
-
-    const network = new brain.recurrent.LSTM();
+//Start LSTM from here...
+  const network = new brain.recurrent.LSTM();
 
     network.train(trainingData , {
-      iterations: 10,
+      iterations: 1000,
       log: stats => {
         console.log(stats)
       }
     })
      alert("WE have been trained")
 
-    const queryString = 'Shamokin'; //data[0];
+    const queryString = data; //data[0];
 
     alert("QueryString: " + queryString );
 
     console.log("Results: ", queryString + network.run(queryString ));
-*/
-    return data;
-  },
-  LSTM (data) {
+
+   // return data;
+};
+
+
+const testData = 'top10.txt'; //'/Users/cooper/Documents/Data/NAD_r3_revised_ASCII/top10.txt'
+d3.csv(testData)
+.then(function(data) {
+    // data is now whole data set
+    console.log("Ouila mon ami: ", data );
+    
+    let output = data.map( row =>{
+      let rowOut = []
+      let keys = Object.keys(row)
+      for(var i in keys){
+        
+        let k = keys[i]
+        let value = row[k]
+  /*    if(value != ""){
+          rowOut.push(value)
+        }*/
+        rowOut.push(value);
+      }
+      return rowOut.join(',')
+    })
+    console.log("output>",output);
+    trainingData = output;
+    processData(trainingData)
+})
+.catch(function(error){
+  // handle error 
+  console.log('ERROR: ', error )  
+})
+
+  //  return data;
+},//end decsisionTree
+  defaultFunc (data) {
     console.log("makeaDecision.LSTM: "+ data );
     
     const brain = require('brain.js');
@@ -110,53 +115,7 @@ async () => {
     return data;
   },
   //cooper s - within7dys is the "Boucher" check
-doYourThing(conversion, trainingData ) {
-  alert("Run a decision tree: " + conversion[0].age);
-  console.log("makeaDecision - test data passed: ", trainingData );
-      //cooper s - loop through our conversions to see if we can find a matching date
-      
-    var finalArr = [];
-      var config = {
-        trainingSet: trainingData, 
-        categoryAttr: 'Total_Conversion',
-        ignoredAttributes: ['ad_id']
-      };
 
-  // Building Decision Tree
-  var decisionTree = new dt.DecisionTree(config);
-  console.log("decisionTree-category: ", decisionTree.category  );
-    
-  // Building Random Forest
-  var numberOfTrees = 3;
-  var randomForest = new dt.RandomForest(config, numberOfTrees);
-
-  var decisionTreePrediction = decisionTree.predict(conversion[0]);
-  console.log("decisionTreePrediction: ",  decisionTreePrediction );
-
-  var randomForestPrediction = randomForest.predict(conversion[0]);
-  
-  console.log("randomForestPrediction: " , randomForestPrediction );
-      
-/*  conversions.forEach(conversion =>  {
-      console.log("forEach: ", conversion );
-   
-        var randomForestPrediction = randomForest.predict(conversion);
-  
-        console.log("randomForestPrediction: " , randomForestPrediction );
-        
-        if (randomForestPrediction.true === 3 ) {  
-          finalArr.push(conversion)
-        }
-      })//end foreach */
-      
-      finalArr=["a","b","c"]
-   
-      console.log("Load Data: ", decisionTreePrediction );
-      return finalArr; 
-
-//
-
-  }//end doyourthing
-}//end makeadecision
+}//end modulesML
 
 export default modulesML
