@@ -6,15 +6,18 @@ var modulesML = {
     console.log("makeaDecision.Test: "+ data );
     return data;
   },
-  runLSTM(data) {
-    console.log("makeaDecision.runLSTM: "+ data.split('') );
+  async runLSTM(data) {
+    console.log("makeaDecision.runLSTM: "+ typeof(data) );
+
+    const dataArr = Object.keys(data).map(i => data[i]);
+    console.log("dataArr: ", dataArr[0] );
+    let dataStr  =   "AR,Yell"
 
     const brain = require('brain.js');
     const d3 = require('d3')
 
     let trainingData = [];
 
-    
 
    /* const trainingData = [
       "12 Loines Ave, Merrick, NY 11566, USA,2039 Merrick Ave N, Merrick, NY 11566, USA,2039 Merrick Ave, Merrick, NY 11566, USA,11 Loines Ave, Merrick, NY 11566, USA,57-1 Loines Ave, Merrick, NY 11566, USA,Merrick, NY, USA,Merrick, NY 11566, USA,Hempstead, NY, USA,Nassau County, NY, USA,Long Island, New York, USA,New York, USA,United States",
@@ -42,20 +45,24 @@ function processData (training) {
   const network = new brain.recurrent.LSTM();
 
     network.train(trainingData , {
-      iterations: 1000,
+      iterations: 100,
       log: stats => {
         console.log(stats)
       }
     })
      alert("WE have been trained")
 
-    const queryString = data; //data[0];
+    const queryString = dataStr; //data[0];
 
     alert("QueryString: " + queryString );
 
     console.log("Results: ", queryString + network.run(queryString ));
 
-   // return data;
+    //console.log("Results: ", network.run(queryString ));
+    
+    let result = "hello there"; //queryString + network.run(queryString )
+
+  //  return result;
 };
 
 
@@ -72,6 +79,7 @@ d3.csv(testData)
         
         let k = keys[i]
         let value = row[k]
+        // cooper s - here's where we remove empthy columns
   /*    if(value != ""){
           rowOut.push(value)
         }*/
