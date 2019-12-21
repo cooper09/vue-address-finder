@@ -2,11 +2,9 @@ import { VAppBarNavIcon } from "vuetify/lib";
 
 var modulesML = {
 
-  
-
-  Test(data) {
-    console.log("makeaDecision.Test: "+ data );
-    return data;
+  lstmPromise(data) {
+    console.log("makeaDecision.lstmPromise: "+ data );
+    return Promise.resolve(this.decisionTree(data))
   },
   decisionTree(data) {
     console.log("makeaDecision.decisionTree: "+ data );
@@ -35,7 +33,7 @@ var modulesML = {
       ",NY,Suffolk,Islip,East Islip,,East Islip,11730,,,,,,,,Shamokin,Lane,,,,20,,,,,,,,,,-73.181243394550705,40.728252197161567,18TXL5359010182,{840B9CF3-7FAF-45C0-8CA6-FF1D0D6A05AB},Unknown,Structure - Rooftop,New York State GIS Program Office,911 Addressing Authority,,7/23/2018 20:07:26,,,3771058"
     ]
 */
-    const testData = '/Users/cooper/Documents/Data/NAD_r3_revised_ASCII/top10.txt'
+    const testData = 'top10.txt'
 d3.csv(testData, function (data){
   console.log("d3.csv: ", data )
   data.map ( item => {

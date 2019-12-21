@@ -86,8 +86,10 @@ export default {
           let addrList = stinky.addresses[0].split(', ');
 
          //const smoozy = modulesML.LSTM(addrList);
-         const smoozy = modulesML.decisionTree(addrList);
-         this.$store.dispatch("getAddresses", smoozy );
+          const smoozy =  modulesML.lstmPromise(addrList).then(result =>{
+          console.log("smoozy: ", result )
+          this.$store.dispatch("getAddresses", result );
+        });
       }//end test
   },//end methods
 };//end export
