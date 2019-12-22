@@ -27,7 +27,10 @@
         <v-btn class="mt-3" @click='test()'>Search for possible Addresses</v-btn>
 
         <v-content>
-        {{myAddresses}}
+        {{myAddresses.address}}<br/>
+        {{myAddresses.street}}<br/>
+        {{myAddresses.city}}<br/>
+        {{myAddresses.zip}}
         </v-content>
         </v-card-text>
 

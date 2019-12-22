@@ -42,13 +42,6 @@ d3.csv(testData, function (data){
 })//end read csv
 
 
-$.ajax({
-  url: testData,
-  dataType: 'test',
-  success: function(data){
-    console.log("Ajax data: ", data );
-  }
-})//end ajax
 
 async () => {
   alert("Shiver me Timbers!!! ");
