@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    dataURL:'https://sleepy-everglades-99189.herokuapp.com/multiline_facebook_conversions',
+    dataURL:'https://sleepy-everglades-99189.herokuapp.com/autos',
     contactsURL: "https://sleepy-everglades-99189.herokuapp.com/multilines",
     startData: [],
     contactData: [], 

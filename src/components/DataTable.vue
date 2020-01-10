@@ -35,10 +35,10 @@ components: {
             sortable: true,
             value: 'timestamp',
           },
-          { text: 'Campaign', value: 'campaign' },
-          { text: 'Ad Set', value: 'medium' },
-          { text: 'Ad Name', value: 'source' },
-          { text: 'Postal Code', value: 'postal' },
+          { text: 'City', value: 'city' },
+          { text: 'State', value: 'state' },
+          { text: 'Latitude', value: 'latitude' },
+          { text: 'Longitude', value: 'longitude' },
         ],
       
   }),//end data
